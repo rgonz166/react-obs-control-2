@@ -1,6 +1,7 @@
 import { createContext, useState } from 'react';
+import { IUserDataProvider } from '../Interfaces/IUserData';
 
-export const UserDataContext = createContext(null);
+export const UserDataContext = createContext<IUserDataProvider>(null);
 
 export function UserDataProvider({ children }) {
   const [obsServerAddress, setObsServerAddress] = useState<string>(() => {
