@@ -5,13 +5,23 @@ import './index.css';
 import { UserDataProvider } from './Contexts/UserDataContext.tsx';
 import { ObsWebsocketProvider } from './Contexts/ObsWebsocketContext.tsx';
 import { BrowserRouter } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material';
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <UserDataProvider>
-    <ObsWebsocketProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ObsWebsocketProvider>
-  </UserDataProvider>,
+  <ThemeProvider theme={darkTheme}>
+    <UserDataProvider>
+      <ObsWebsocketProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </ObsWebsocketProvider>
+    </UserDataProvider>
+    ,
+  </ThemeProvider>,
 );
