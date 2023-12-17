@@ -6,8 +6,8 @@ export default function OBSWebSocketRef() {
   const ws = useRef<OBSWebSocket>(new OBSWebSocket());
 
   async function connectObs() {
-    if (isConnected) {
-      try {
+    try {
+      if (!isConnected) {
         ws.current = new OBSWebSocket();
         const obs = ws.current;
         const { obsWebSocketVersion, negotiatedRpcVersion } = await obs.connect(
@@ -20,6 +20,7 @@ export default function OBSWebSocketRef() {
         console.log(
           `Connected to server ${obsWebSocketVersion} (using RPC ${negotiatedRpcVersion})`,
         );
+        setConnection(true);
 
         const results = await obs.callBatch([
           {
@@ -35,32 +36,42 @@ export default function OBSWebSocketRef() {
           (results[0].responseData as OBSResponseTypes['GetVersion'])
             .obsVersion,
         );
-      } catch (error: any) {
-        console.error('Failed to connect', error.code, error.message);
       }
-    } else {
-      if (ws.current) {
-        ws.current.disconnect();
-      }
+    } catch (error: any) {
+      console.error('Failed to connect', error.code, error.message);
+      setConnection(false);
     }
   }
 
   useEffect(() => {
-    connectObs();
-    ws.current.on('ConnectionOpened', () =>
-      console.log('Connection Successful'),
-    );
-    ws.current.on('ConnectionClosed', () => console.log('Connection Closed'));
+    ws.current.on('ConnectionOpened', () => {
+      console.log('Connection Successful');
+      setConnection(true);
+    });
+    ws.current.on('ConnectionClosed', () => {
+      console.log('Connection Closed');
+      setConnection(false);
+    });
     return () => {
       ws.current.disconnect();
     };
-  }, [isConnected]);
+  }, []);
+
+  const handleConnect = () => {
+    connectObs();
+  };
+  const handleDisconnect = () => {
+    ws.current.disconnect();
+    setConnection(false);
+  };
 
   return (
     <div>
-      <button onClick={() => setConnection(!isConnected)}>
-        {isConnected ? 'Disconnect' : 'Connect'}
-      </button>
+      {isConnected ? (
+        <button onClick={() => handleDisconnect()}>Disconnect</button>
+      ) : (
+        <button onClick={() => handleConnect()}>Connect</button>
+      )}
     </div>
   );
 }
