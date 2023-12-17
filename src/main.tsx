@@ -5,7 +5,7 @@ import './index.css';
 import { UserDataProvider } from './Contexts/UserDataContext.tsx';
 import { ObsWebsocketProvider } from './Contexts/ObsWebsocketContext.tsx';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
 const darkTheme = createTheme({
   palette: {
@@ -15,6 +15,7 @@ const darkTheme = createTheme({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ThemeProvider theme={darkTheme}>
+    <CssBaseline />
     <UserDataProvider>
       <ObsWebsocketProvider>
         <BrowserRouter>
