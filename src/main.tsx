@@ -4,11 +4,14 @@ import App from './App.tsx';
 import './index.css';
 import { UserDataProvider } from './Contexts/UserDataContext.tsx';
 import { ObsWebsocketProvider } from './Contexts/ObsWebsocketContext.tsx';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <UserDataProvider>
     <ObsWebsocketProvider>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </ObsWebsocketProvider>
   </UserDataProvider>,
 );
