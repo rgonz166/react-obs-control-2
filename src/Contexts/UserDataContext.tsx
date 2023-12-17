@@ -4,17 +4,17 @@ export const UserDataContext = createContext(null);
 
 export function UserDataProvider({ children }) {
   const [obsServerAddress, setObsServerAddress] = useState<string>(() => {
-    const saved = localStorage.get('obsServerAddress');
+    const saved = localStorage.getItem('obsServerAddress');
     const initialValue = JSON.parse(saved);
     return initialValue || '192.168.0.1';
   });
   const [obsServerPort, setObsServerPort] = useState<number>(() => {
-    const saved = localStorage.get('obsServerPort');
+    const saved = localStorage.getItem('obsServerPort');
     const initialValue = JSON.parse(saved);
     return initialValue || 4455;
   });
   const [obsServerPassword, setObsServerPassword] = useState<string>(() => {
-    const saved = localStorage.get('obsServerPassword');
+    const saved = localStorage.getItem('obsServerPassword');
     const initialValue = JSON.parse(saved);
     return initialValue || '';
   });
