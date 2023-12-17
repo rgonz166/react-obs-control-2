@@ -1,7 +1,7 @@
-import OBSWebSocket, { OBSResponseTypes } from 'obs-websocket-js';
+import OBSWebSocket from 'obs-websocket-js';
 import { createContext, useRef, useState } from 'react';
 
-export const ObsWebsocketContext = createContext({});
+export const ObsWebsocketContext = createContext(null);
 
 export function ObsWebsocketProvider({ children }) {
   const [isConnected, setConnection] = useState(false);
