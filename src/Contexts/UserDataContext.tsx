@@ -3,19 +3,46 @@ import { createContext, useState } from 'react';
 export const UserDataContext = createContext(null);
 
 export function UserDataProvider({ children }) {
-  const [obsServerAddress, setObsServerAddress] = useState('192.168.0.1');
-  const [obsServerPort, setObsServerPort] = useState(4455);
-  const [obsServerPassword, setObsServerPassword] = useState('');
+  const [obsServerAddress, setObsServerAddress] = useState<string>(() => {
+    const saved = localStorage.get('obsServerAddress');
+    const initialValue = JSON.parse(saved);
+    return initialValue || '192.168.0.1';
+  });
+  const [obsServerPort, setObsServerPort] = useState<number>(() => {
+    const saved = localStorage.get('obsServerPort');
+    const initialValue = JSON.parse(saved);
+    return initialValue || 4455;
+  });
+  const [obsServerPassword, setObsServerPassword] = useState<string>(() => {
+    const saved = localStorage.get('obsServerPassword');
+    const initialValue = JSON.parse(saved);
+    return initialValue || '';
+  });
+
+  const handleServerAddress = (data: string) => {
+    setObsServerAddress(data);
+    localStorage.setItem('obsServerAddress', JSON.stringify(data));
+  };
+
+  const handleServerPort = (data: number) => {
+    setObsServerPort(data);
+    localStorage.setItem('obsServerPort', JSON.stringify(data));
+  };
+
+  const handleServerPassword = (data: string) => {
+    setObsServerPassword(data);
+    localStorage.setItem('obsServerPassword', JSON.stringify(data));
+  };
 
   return (
     <UserDataContext.Provider
       value={{
         obsServerAddress,
-        setObsServerAddress,
+        handleServerAddress,
         obsServerPort,
-        setObsServerPort,
+        handleServerPort,
         obsServerPassword,
-        setObsServerPassword,
+        handleServerPassword,
       }}
     >
       {children}
