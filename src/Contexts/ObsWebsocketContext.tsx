@@ -1,8 +1,9 @@
 import OBSWebSocket from 'obs-websocket-js';
 import { createContext, useContext, useRef, useState } from 'react';
 import { UserDataContext } from './UserDataContext';
+import { IObsWebsocketContext } from '../Interfaces/IObsWebsocketContext';
 
-export const ObsWebsocketContext = createContext(null);
+export const ObsWebsocketContext = createContext<IObsWebsocketContext>(null);
 
 export function ObsWebsocketProvider({ children }) {
   const [isConnected, setConnection] = useState(false);
@@ -35,8 +36,15 @@ export function ObsWebsocketProvider({ children }) {
     }
   }
 
+  const handleDisconnect = () => {
+    ws.current.disconnect();
+    setConnection(false);
+  };
+
   return (
-    <ObsWebsocketContext.Provider value={{ isConnected, ws }}>
+    <ObsWebsocketContext.Provider
+      value={{ isConnected, setConnection, ws, connectObs, handleDisconnect }}
+    >
       {children}
     </ObsWebsocketContext.Provider>
   );
