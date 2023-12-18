@@ -13,12 +13,6 @@ import { UserDataContext } from '../Contexts/UserDataContext';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 const Settings = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const inputStyle: React.CSSProperties = {
-    fontWeight: 'bold',
-    color: 'white',
-  };
   const {
     obsServerAddress,
     handleServerAddress,
@@ -27,6 +21,24 @@ const Settings = () => {
     obsServerPassword,
     handleServerPassword,
   } = useContext(UserDataContext);
+
+  // Temp data
+  const [tempAddress, setTempAddress] = useState(obsServerAddress);
+  const [tempPort, setTempPort] = useState(obsServerPort);
+  const [tempPassword, setTempPassword] = useState(obsServerPassword);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const inputStyle: React.CSSProperties = {
+    fontWeight: 'bold',
+    color: 'white',
+  };
+
+  const handleSaveData = () => {
+    handleServerAddress(tempAddress);
+    handleServerPort(tempPort);
+    handleServerPassword(tempPassword);
+  };
   return (
     <>
       <div>Settings</div>
@@ -39,8 +51,8 @@ const Settings = () => {
           <OutlinedInput
             id="serverAddress"
             type="text"
-            onChange={(event) => handleServerAddress(event.target.value)}
-            value={obsServerAddress}
+            onChange={(event) => setTempAddress(event.target.value)}
+            value={tempAddress}
             placeholder="Ex. 192.168.0.1"
           />
           <FormHelperText>IP Address for your OBS Websocket</FormHelperText>
@@ -53,8 +65,8 @@ const Settings = () => {
           <OutlinedInput
             id="serverPort"
             type="number"
-            onChange={(event) => handleServerPort(+event.target.value)}
-            value={obsServerPort}
+            onChange={(event) => setTempPort(+event.target.value)}
+            value={tempPort}
             placeholder="Ex. 4455"
           />
           <FormHelperText>PORT number for your OBS Websocket</FormHelperText>
@@ -67,8 +79,8 @@ const Settings = () => {
           <OutlinedInput
             id="serverPassword"
             type={showPassword ? 'text' : 'password'}
-            onChange={(event) => handleServerPassword(event.target.value)}
-            value={obsServerPassword}
+            onChange={(event) => setTempPassword(event.target.value)}
+            value={tempPassword}
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
@@ -77,7 +89,7 @@ const Settings = () => {
                   onMouseDown={handleClickShowPassword}
                   edge="end"
                 >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                  {showPassword ? <Visibility /> : <VisibilityOff />}
                 </IconButton>
               </InputAdornment>
             }
@@ -85,6 +97,7 @@ const Settings = () => {
           <FormHelperText>Password for your OBS Websocket</FormHelperText>
         </FormControl>
       </FormGroup>
+      <button onClick={() => handleSaveData()}>Save</button>
     </>
   );
 };
