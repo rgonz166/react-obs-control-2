@@ -72,7 +72,7 @@ const Settings = () => {
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
-                  aria-label="toggle password visibility"
+                  aria-label="Toggle password visibility"
                   onClick={handleClickShowPassword}
                   onMouseDown={handleClickShowPassword}
                   edge="end"

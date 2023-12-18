@@ -6,6 +6,7 @@ import { UserDataProvider } from './Contexts/UserDataContext.tsx';
 import { ObsWebsocketProvider } from './Contexts/ObsWebsocketContext.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import Navbar from './Components/Navbar.tsx';
 
 const darkTheme = createTheme({
   palette: {
@@ -19,6 +20,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <UserDataProvider>
       <ObsWebsocketProvider>
         <BrowserRouter>
+          <Navbar />
           <App />
         </BrowserRouter>
       </ObsWebsocketProvider>
