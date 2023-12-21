@@ -4,6 +4,8 @@ import { Route, Routes } from 'react-router-dom';
 import Settings from './Pages/Settings';
 import Home from './Pages/Home';
 import Version from './Components/Version';
+import ObsStats from './functions/ObsStats';
+import ObsScenes from './Components/ObsScenes';
 
 function App() {
   const appStyle: React.CSSProperties = {
@@ -20,6 +22,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
       </Routes>
       <OBSWebSocketRef />
+      <ObsScenes />
       <Version />
     </div>
   );
