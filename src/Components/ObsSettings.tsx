@@ -28,10 +28,6 @@ function ObsSettings() {
 
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const inputStyle: React.CSSProperties = {
-    fontWeight: 'bold',
-    color: 'white',
-  };
 
   const handleSaveData = () => {
     handleServerAddress(tempAddress);
@@ -42,9 +38,7 @@ function ObsSettings() {
     <>
       <FormGroup>
         <FormControl fullWidth>
-          <InputLabel htmlFor="serverAddress" style={inputStyle}>
-            OBS Websocket Address
-          </InputLabel>
+          <InputLabel htmlFor="serverAddress">OBS Websocket Address</InputLabel>
           <OutlinedInput
             id="serverAddress"
             type="text"
@@ -56,9 +50,7 @@ function ObsSettings() {
         </FormControl>
         <br />
         <FormControl>
-          <InputLabel htmlFor="serverPort" style={inputStyle}>
-            OBS Websocket Port
-          </InputLabel>
+          <InputLabel htmlFor="serverPort">OBS Websocket Port</InputLabel>
           <OutlinedInput
             id="serverPort"
             type="number"
@@ -70,7 +62,7 @@ function ObsSettings() {
         </FormControl>
         <br />
         <FormControl>
-          <InputLabel htmlFor="serverPassword" style={inputStyle}>
+          <InputLabel htmlFor="serverPassword">
             OBS Websocket Password
           </InputLabel>
           <OutlinedInput
@@ -78,6 +70,7 @@ function ObsSettings() {
             type={showPassword ? 'text' : 'password'}
             onChange={(event) => setTempPassword(event.target.value)}
             value={tempPassword}
+            autoComplete="off"
             endAdornment={
               <InputAdornment position="end">
                 <IconButton
