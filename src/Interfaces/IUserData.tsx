@@ -5,4 +5,6 @@ export interface IUserDataProvider {
   handleServerPort(data: number);
   obsServerPassword: string;
   handleServerPassword(data: string);
+  twitchToken: string;
+  setTwitchToken(data: string);
 }

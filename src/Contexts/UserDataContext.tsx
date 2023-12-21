@@ -20,6 +20,12 @@ export function UserDataProvider({ children }) {
     return initialValue || '';
   });
 
+  const [twitchToken, setTwitchToken] = useState(() => {
+    const saved = localStorage.getItem('twitchToken');
+    const initialValue = JSON.parse(saved);
+    return initialValue || '';
+  });
+
   const handleServerAddress = (data: string) => {
     setObsServerAddress(data);
     localStorage.setItem('obsServerAddress', JSON.stringify(data));
@@ -44,6 +50,8 @@ export function UserDataProvider({ children }) {
         handleServerPort,
         obsServerPassword,
         handleServerPassword,
+        twitchToken,
+        setTwitchToken,
       }}
     >
       {children}
