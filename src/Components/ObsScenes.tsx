@@ -2,9 +2,11 @@ import { useContext, useEffect, useState } from 'react';
 import { ObsWebsocketContext } from '../Contexts/ObsWebsocketContext';
 import { IObsScenes } from '../Interfaces/IObsScenes';
 import { MediaActions } from '../Enums/MediaActions.enum';
+import { UserDataContext } from '../Contexts/UserDataContext';
 
 function ObsScenes() {
   const { ws, isConnected } = useContext(ObsWebsocketContext);
+  const { twitchToken } = useContext(UserDataContext);
   const [scenes, setScenes] = useState([]);
 
   //TODO If getting sources works, make a function to update all the lists when calling and grabbing the lists
@@ -72,12 +74,9 @@ function ObsScenes() {
       .then((res) => console.log(res));
   };
 
-  useEffect(() => console.log('scenes', scenes), [scenes]);
-  useEffect(() => {
-    ws.current.on('InputActiveStateChanged', (data) => {
-      console.log('data', data);
-    });
-  }, []);
+  const getTwitchTocken = () => {
+    console.log('twitchToken', twitchToken);
+  };
 
   return (
     <>
@@ -88,6 +87,7 @@ function ObsScenes() {
       <button onClick={() => getMedia()} disabled={!isConnected}>
         Get Media
       </button>
+      <button onClick={() => getTwitchTocken()}>Get Twitch Token</button>
     </>
   );
 }
