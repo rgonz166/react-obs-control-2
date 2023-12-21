@@ -28,6 +28,7 @@ export function ObsWebsocketProvider({ children }) {
           `Connected to server ${obsWebSocketVersion} (using RPC ${negotiatedRpcVersion})`,
         );
         ws.current.on('MediaInputPlaybackEnded', (data) => {
+          // TODO do something here whenever media ends (check queue)
           console.log('ended', data);
         });
         setConnection(true);
