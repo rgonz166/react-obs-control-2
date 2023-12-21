@@ -27,6 +27,9 @@ export function ObsWebsocketProvider({ children }) {
         console.log(
           `Connected to server ${obsWebSocketVersion} (using RPC ${negotiatedRpcVersion})`,
         );
+        ws.current.on('MediaInputPlaybackEnded', (data) => {
+          console.log('ended', data);
+        });
         setConnection(true);
       } catch (error: any) {
         console.error('Failed to connect', error.code, error.message);
