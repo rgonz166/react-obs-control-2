@@ -129,7 +129,7 @@ function ResponsiveAppBar() {
               </Link>
             ))}
           </Box>
-          <ProfileIcon />
+          {/* <ProfileIcon /> */}
         </Toolbar>
       </Container>
     </AppBar>
