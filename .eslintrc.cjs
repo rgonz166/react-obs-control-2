@@ -20,6 +20,12 @@ module.exports = {
     ],
     "@typescript-eslint/no-explicit-any": [
       'warn'
+    ],
+    'prefer-const': [
+      'warn'
+    ],
+    'no-empty': [
+      'warn'
     ]
   },
 }
