@@ -27,10 +27,14 @@ export function ObsWebsocketProvider({ children }) {
         console.log(
           `Connected to server ${obsWebSocketVersion} (using RPC ${negotiatedRpcVersion})`,
         );
+        ws.current.on('MediaInputPlaybackStarted', (data) => {
+          console.log('Data started: ', data)
+        })
         ws.current.on('MediaInputPlaybackEnded', (data) => {
           // TODO do something here whenever media ends (check queue)
           console.log('ended', data);
         });
+        ws.current.on('ConnectionClosed', (data) => console.log('ConnectionClosed', data))
         setConnection(true);
       } catch (error: any) {
         console.error('Failed to connect', error.code, error.message);

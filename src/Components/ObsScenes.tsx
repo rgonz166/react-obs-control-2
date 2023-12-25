@@ -17,6 +17,7 @@ function ObsScenes() {
 
   const getObsData = async () => {
     handleScenePromise().then(async (value) => {
+      console.log('scenes', value)
       for (let scene of value) {
         scene['sources'] = await ws.current
           .call('GetSceneItemList', {
