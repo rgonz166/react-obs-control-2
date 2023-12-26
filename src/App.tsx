@@ -7,6 +7,7 @@ import Version from './Components/Version';
 import ObsStats from './functions/ObsStats';
 import ObsScenes from './Components/ObsScenes';
 import TwitchAuth from './Pages/TwitchAuth';
+import ConnectionButtons from './Components/ConnectionButtons';
 
 function App() {
   const appStyle: React.CSSProperties = {
@@ -25,6 +26,7 @@ function App() {
       </Routes>
       <OBSWebSocketRef />
       <ObsScenes />
+      <ConnectionButtons />
       <Version />
     </div>
   );
